@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import Notification from './Notification'; // Importa o componente de notificação
 
+// Importações dos logótipos (removidos os que causavam erro)
 import NetflixLogo from './assets/logos/netflix.png';
 import PrimeVideoLogo from './assets/logos/prime_video.png';
 import DisneyPlusLogo from './assets/logos/disney_plus.png';
@@ -30,9 +31,8 @@ import HuluLogo from './assets/logos/hulu.png';
 import PeacockLogo from './assets/logos/globo_play.png';
 import ParamountPlusLogo from './assets/logos/paramount_plus.png';
 import StarzLogo from './assets/logos/starz.png';
-import DiscoveryPlusLogo from './assets/logos/discovery_plus.png'; // Corrigido para .svg
 
-
+// Dados para as notificações
 const fakeNames = ["Maria S.", "João P.", "Ana C.", "Lucas M.", "Sofia L.", "Pedro H.", "Julia A."];
 const fakeContent = ["Superman: O Legado", "A Casa do Dragão", "Deadpool & Wolverine", "Divertida-Mente 2", "O Urso", "The Boys", "The Last of Us"];
 
@@ -45,7 +45,7 @@ function App() {
   
   const [notification, setNotification] = useState<string | null>(null);
 
-
+  // Efeito para o script do Vimeo
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://player.vimeo.com/api/player.js";
@@ -56,7 +56,7 @@ function App() {
     }
   }, []);
 
-
+  // Efeito para o temporizador
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -69,27 +69,24 @@ function App() {
     return () => clearInterval(timer);
   }, []);
   
-useEffect(() => {
-  let notificationInterval: NodeJS.Timeout;
-
-  const showRandomNotification = () => {
-    const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
-    const randomContent = fakeContent[Math.floor(Math.random() * fakeContent.length)];
-    const message = `<strong>${randomName}</strong> acabou de gerar seu teste grátis e está assistindo <strong>${randomContent}</strong>`;
-    setNotification(message);
-  };
-
-  const initialTimeout = setTimeout(() => {
-    showRandomNotification();
-
-    notificationInterval = setInterval(showRandomNotification, 8000);
-  }, 2000); 
-
-  return () => {
-    clearTimeout(initialTimeout);
-    clearInterval(notificationInterval);
-  };
-}, []); 
+  // Efeito para gerar notificações
+  useEffect(() => {
+    let notificationInterval: NodeJS.Timeout;
+    const showRandomNotification = () => {
+      const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+      const randomContent = fakeContent[Math.floor(Math.random() * fakeContent.length)];
+      const message = `<strong>${randomName}</strong> acabou de gerar seu teste grátis e está assistindo <strong>${randomContent}</strong>`;
+      setNotification(message);
+    };
+    const initialTimeout = setTimeout(() => {
+      showRandomNotification();
+      notificationInterval = setInterval(showRandomNotification, 8000); // Notificação visível (5s) + pausa (3s)
+    }, 2000); // Primeira notificação em 2 segundos
+    return () => {
+      clearTimeout(initialTimeout);
+      clearInterval(notificationInterval);
+    };
+  }, []);
 
   const benefits = [
     { icon: <Tv className="w-8 h-8 text-brand-accent" />, title: "Filmes e Séries Ilimitados", description: "Acesso completo a milhares de títulos em HD e 4K" },
@@ -112,7 +109,7 @@ useEffect(() => {
     { number: "2", title: "Acesse Instantaneamente", description: "Comece a assistir em segundos" },
     { number: "3", title: "Aproveite seu Teste VIP", description: "4 horas completas de entretenimento grátis" }
   ];
-
+  
   const streamingLogos = [
     { name: 'Netflix', logo: NetflixLogo },
     { name: 'Amazon Prime Video', logo: PrimeVideoLogo },
@@ -123,16 +120,14 @@ useEffect(() => {
     { name: 'Peacock', logo: PeacockLogo },
     { name: 'Paramount+', logo: ParamountPlusLogo },
     { name: 'Starz', logo: StarzLogo },
-    { name: 'Discovery+', logo: DiscoveryPlusLogo },
   ];
 
   const handleCTAClick = () => {
-    window.open('https://linkly.link/2BefA', '_blank');
+    window.open('https://wa.me/5511916126544?text=Olá! Quero gerar meu teste grátis do Meu Mundo Play!', '_blank');
   };
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -147,30 +142,38 @@ useEffect(() => {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="bg-brand-primary text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Ganhe Seu Teste Grátis no<br />
+            Você Ganhou um teste grátis no<br />
             <span className="text-white">Meu Mundo Play</span>
           </h2>
+
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
             Descubra um mundo de entretenimento sem limites. Experimente grátis agora mesmo!
           </p>
+          
           <div className="max-w-4xl mx-auto mb-8">
-            <div style={{ padding: '56.25% 0 0 0', position: 'relative' }}>
-              <iframe
-                src="https://player.vimeo.com/video/863788039?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}
+            <div style={{padding: '56.25% 0 0 0', position: 'relative'}}>
+              <iframe 
+                src="https://player.vimeo.com/video/863788039?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                frameBorder="0" 
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%'}} 
                 title="ACESSE AGORA NOSSO SITE">
               </iframe>
             </div>
           </div>
+          
           <div className="mb-8">
-            <p className="text-lg mb-4 text-gray-100">🎁 Você já ganhou seu teste VIP, clique para ativar!</p>
-            <button onClick={handleCTAClick} className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
+            <p className="text-xl font-bold mb-4 text-yellow-300 animate-pulse">
+              🎁 Você já ganhou seu teste VIP, clique para ativar! ⬇️
+            </p>
+
+            <button 
+              onClick={handleCTAClick}
+              className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
+            >
               Gerar meu Teste Agora
             </button>
           </div>
@@ -182,7 +185,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Urgency Banner */}
       <section className="bg-brand-accent text-white py-4">
         <div className="container mx-auto px-4 text-center">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-8">
@@ -202,7 +204,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -220,8 +221,7 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-      {/* Content/Carousel Section */}
+      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -248,7 +248,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -272,7 +271,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* How It Works Section */}
       <section className="py-20 bg-blue-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -291,7 +289,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
       <section className="py-20 bg-brand-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Não perca esta oportunidade única!</h3>
@@ -306,15 +303,12 @@ useEffect(() => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
+      
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Play className="w-6 h-6 text-brand-accent" /><h4 className="text-xl font-bold">Meu Mundo Play</h4>
-              </div>
+              <div className="flex items-center space-x-2 mb-4"><Play className="w-6 h-6 text-brand-accent" /><h4 className="text-xl font-bold">Meu Mundo Play</h4></div>
               <p className="text-gray-400 mb-4">O melhor streaming do Brasil com milhares de filmes e séries.</p>
               <div className="flex space-x-4">
                 <Facebook className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
@@ -340,26 +334,24 @@ useEffect(() => {
             </div>
             <div>
               <h5 className="text-lg font-semibold mb-4">Suporte</h5>
-              <p className="text-gray-400 mb-4">Atendimento 14/7 via WhatsApp</p>
+              <p className="text-gray-400 mb-4">Atendimento 24/7 via WhatsApp</p>
               <button onClick={handleCTAClick} className="bg-brand-accent text-white px-4 py-2 rounded-lg hover:opacity-90 transition-colors flex items-center">
                 <MessageCircle className="w-4 h-4 mr-2" />Falar no WhatsApp
               </button>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Meu Mundo Play. Todos os direitos reservados.</p>
+            <p>&copy; 2024 Meu Mundo Play. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
       
-      {/* Sticky Mobile CTA */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-primary p-4 z-50 shadow-lg">
         <button onClick={handleCTAClick} className="w-full bg-brand-accent text-white py-3 rounded-lg font-bold text-lg hover:opacity-90 transition-colors">
           Teste Grátis Agora! 🎁
         </button>
       </div>
 
-      {/* Notificação */}
       {notification && (
         <Notification
           message={notification}
