@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Play, 
-  Shield, 
-  Clock, 
-  Users, 
-  Star, 
-  Check, 
+import {
+  Play,
+  Shield,
+  Clock,
+  Users,
+  Star,
+  Check,
   MessageCircle,
   Smartphone,
   Tv,
@@ -20,6 +20,18 @@ import {
   Instagram,
   Twitter
 } from 'lucide-react';
+
+import NetflixLogo from './assets/logos/netflix.png';
+import PrimeVideoLogo from './assets/logos/prime_video.png';
+import DisneyPlusLogo from './assets/logos/disney_plus.png';
+import HboMaxLogo from './assets/logos/hbo_max.png';
+import AppleTvPlusLogo from './assets/logos/apple_tv_plus.png';
+import HuluLogo from './assets/logos/hulu.png';
+import PeacockLogo from './assets/logos/globo_play.png';
+import ParamountPlusLogo from './assets/logos/paramount_plus.png';
+import StarzLogo from './assets/logos/starz.png';
+import UfcLogo from './assets/logos/ufc.png';
+import DiscoveryPlusLogo from './assets/logos/discovery_plus.svg';
 
 function App() {
   const [timeLeft, setTimeLeft] = useState({
@@ -68,7 +80,7 @@ function App() {
     },
     {
       icon: <Zap className="w-8 h-8 text-green-600" />,
-      title: "Streaming Ultra Rápido",
+      title: "Streaming Ultra Rápido", 
       description: "Tecnologia de ponta para streaming sem travamentos"
     },
     {
@@ -93,7 +105,7 @@ function App() {
     },
     {
       name: "Ana Rodrigues",
-      image: "https://images.pexels.com/photos/3992656/pexels-photo-3992656.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
+      image: "../assets/depoimento.png",
       text: "Meus filhos amam! Tem desenhos, filmes infantis e eu posso assistir minhas séries favoritas. Perfeito!",
       rating: 5
     },
@@ -121,6 +133,19 @@ function App() {
       title: "Aproveite seu Teste VIP",
       description: "4 horas completas de entretenimento grátis"
     }
+  ];
+
+  const streamingLogos = [
+    { name: 'Netflix', logo: NetflixLogo },
+    { name: 'Amazon Prime Video', logo: PrimeVideoLogo },
+    { name: 'Disney+', logo: DisneyPlusLogo },
+    { name: 'HBO Max', logo: HboMaxLogo },
+    { name: 'Apple TV+', logo: AppleTvPlusLogo },
+    { name: 'Hulu', logo: HuluLogo },
+    { name: 'Peacock', logo: PeacockLogo },
+    { name: 'Paramount+', logo: ParamountPlusLogo },
+    { name: 'Starz', logo: StarzLogo },
+    { name: 'Discovery+', logo: DiscoveryPlusLogo },
   ];
 
   const handleCTAClick = () => {
@@ -232,8 +257,46 @@ function App() {
         </div>
       </section>
 
+      {/* Content Section */}
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              STREAMING COMPLETO - TUDO EM UM SÓ LUGAR!
+            </h3>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Desfrute do melhor conteúdo de streaming e TV ao vivo em uma única assinatura!
+            </p>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-8 mb-16">
+            <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">Principais Serviços de Streaming Inclusos</h4>
+            <div class="overflow-hidden relative h-16">
+              <div class="flex animate-marquee-infinite">
+                {streamingLogos.map((item, i) => (
+                  <div key={i} className="flex-shrink-0 w-48 h-16 flex items-center justify-center">
+                    <img src={item.logo} alt={item.name} className="max-h-12" />
+                  </div>
+                ))}
+                {streamingLogos.map((item, i) => (
+                  <div key={i + streamingLogos.length} className="flex-shrink-0 w-48 h-16 flex items-center justify-center">
+                    <img src={item.logo} alt={item.name} className="max-h-12" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-xl">
+            <h4 class="text-2xl md:text-3xl font-bold mb-4">Tudo isso por apenas uma mensalidade!</h4>
+            <p class="text-lg md:text-xl">
+              Acesse todo este conteúdo quando e onde quiser. ✨ Assine agora e tenha o melhor do entretenimento em um só lugar! ✨
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section class="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
