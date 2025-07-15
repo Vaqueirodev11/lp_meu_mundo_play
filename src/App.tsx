@@ -19,9 +19,9 @@ import {
   Instagram,
   Twitter
 } from 'lucide-react';
-import Notification from './Notification'; // Importa o componente de notificação
+import Notification from './Notification';
 
-// Importações dos logótipos (removidos os que causavam erro)
+// IMPORTAÇÕES DOS LOGÓTIPOS RESTAURADAS
 import NetflixLogo from './assets/logos/netflix.png';
 import PrimeVideoLogo from './assets/logos/prime_video.png';
 import DisneyPlusLogo from './assets/logos/disney_plus.png';
@@ -45,18 +45,15 @@ function App() {
   
   const [notification, setNotification] = useState<string | null>(null);
 
-  // Efeito para o script do Vimeo
+  // Efeitos para scripts, temporizador e notificações...
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://player.vimeo.com/api/player.js";
     script.async = true;
     document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    }
+    return () => { document.body.removeChild(script); }
   }, []);
 
-  // Efeito para o temporizador
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -69,7 +66,6 @@ function App() {
     return () => clearInterval(timer);
   }, []);
   
-  // Efeito para gerar notificações
   useEffect(() => {
     let notificationInterval: NodeJS.Timeout;
     const showRandomNotification = () => {
@@ -80,8 +76,8 @@ function App() {
     };
     const initialTimeout = setTimeout(() => {
       showRandomNotification();
-      notificationInterval = setInterval(showRandomNotification, 8000); // Notificação visível (5s) + pausa (3s)
-    }, 2000); // Primeira notificação em 2 segundos
+      notificationInterval = setInterval(showRandomNotification, 8000);
+    }, 2000);
     return () => {
       clearTimeout(initialTimeout);
       clearInterval(notificationInterval);
@@ -123,7 +119,7 @@ function App() {
   ];
 
   const handleCTAClick = () => {
-    window.open('https://wa.me/5511916126544?text=Olá! Quero gerar meu teste grátis do Meu Mundo Play!', '_blank');
+    window.open('https://linkly.link/2BefA', '_blank');
   };
 
   return (
@@ -148,11 +144,9 @@ function App() {
             Você Ganhou um teste grátis no<br />
             <span className="text-white">Meu Mundo Play</span>
           </h2>
-
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">
             Descubra um mundo de entretenimento sem limites. Experimente grátis agora mesmo!
           </p>
-          
           <div className="max-w-4xl mx-auto mb-8">
             <div style={{padding: '56.25% 0 0 0', position: 'relative'}}>
               <iframe 
@@ -164,16 +158,11 @@ function App() {
               </iframe>
             </div>
           </div>
-          
           <div className="mb-8">
             <p className="text-xl font-bold mb-4 text-yellow-300 animate-pulse">
-              🎁 Você já ganhou seu teste VIP, clique para ativar! ⬇️
+              🎁 Você já ganhou seu teste VIP, clique para ativar!
             </p>
-
-            <button 
-              onClick={handleCTAClick}
-              className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
-            >
+            <button onClick={handleCTAClick} className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
               Gerar meu Teste Agora
             </button>
           </div>
@@ -222,11 +211,16 @@ function App() {
         </div>
       </section>
       
+      {/* SECÇÃO DO CARROSSEL DE LOGÓTIPOS RESTAURADA */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">STREAMING COMPLETO - TUDO EM UM SÓ LUGAR!</h3>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Desfrute do melhor conteúdo de streaming e TV ao vivo em uma única assinatura!</p>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              STREAMING COMPLETO - TUDO EM UM SÓ LUGAR!
+            </h3>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Desfrute do melhor conteúdo de streaming e TV ao vivo em uma única assinatura!
+            </p>
           </div>
           <div className="bg-gray-50 rounded-lg p-8 mb-16">
             <h4 className="text-2xl font-bold text-gray-800 mb-6 text-center">Principais Serviços de Streaming Inclusos</h4>
@@ -241,9 +235,56 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="text-center mt-16 bg-brand-primary text-white p-8 rounded-lg shadow-xl">
-            <h4 className="text-2xl md:text-3xl font-bold mb-4">Tudo isso por apenas uma mensalidade!</h4>
-            <p className="text-lg md:text-xl">Acesse todo este conteúdo quando e onde quiser. ✨ Assine agora e tenha o melhor do entretenimento em um só lugar! ✨</p>
+        </div>
+      </section>
+      
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Pare de Pagar Caro por Múltiplas Assinaturas
+            </h3>
+            <p className="text-xl text-gray-600">
+              Veja quanto custaria assinar os principais serviços de streaming individualmente no Brasil.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
+              <h4 className="text-2xl font-bold text-gray-800 mb-6 text-center">Assinaturas Individuais</h4>
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex justify-between"><span>Netflix (com anúncios)</span> <span>R$ 20,90</span></li>
+                <li className="flex justify-between"><span>Prime Video</span> <span>R$ 19,90</span></li>
+                <li className="flex justify-between"><span>Disney+ (com anúncios)</span> <span>R$ 27,99</span></li>
+                <li className="flex justify-between"><span>Max (com anúncios)</span> <span>R$ 29,90</span></li>
+                <li className="flex justify-between"><span>Apple TV+</span> <span>R$ 21,90</span></li>
+                <li className="flex justify-between"><span>Paramount+</span> <span>R$ 18,90</span></li>
+                <li className="flex justify-between"><span>Starzplay</span> <span>R$ 14,90</span></li>
+              </ul>
+              <div className="border-t my-6"></div>
+              <div className="text-center">
+                <p className="text-gray-600">Total por Mês:</p>
+                <p className="text-4xl font-bold text-brand-accent line-through">R$ 154,39</p>
+                <p className="mt-4 text-sm text-gray-500">... e a confusão de gerir 7 senhas e 7 faturas diferentes!</p>
+              </div>
+            </div>
+            <div className="bg-brand-primary text-white p-8 rounded-lg shadow-2xl text-center">
+              <h4 className="text-3xl font-bold mb-4">Meu Mundo Play</h4>
+              <p className="text-lg text-gray-200 mb-6">Todo o conteúdo. Um único lugar. Uma única assinatura.</p>
+              <p className="text-gray-100">Nosso Preço Mensal:</p>
+              <p className="text-6xl font-bold text-white my-4">R$ 30,00</p>
+            </div>
+          </div>
+          <div className="mt-16 bg-green-100 border-l-4 border-green-500 text-green-800 p-6 rounded-lg text-center max-w-4xl mx-auto">
+            <h4 className="text-2xl font-bold">Sua Economia Anual é de Quase R$ 1.500!</h4>
+            <p className="text-lg mt-2">Ao escolher o Meu Mundo Play, você deixa de gastar mais de <span className="font-bold">R$ 124 por mês</span>. Isso representa uma economia de <span className="font-bold">mais de R$ 1.490 por ano!</span></p>
+          </div>
+          <div className="text-center mt-12">
+             <button 
+              onClick={handleCTAClick}
+              className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
+            >
+              Quero Economizar Agora!
+            </button>
           </div>
         </div>
       </section>
@@ -256,7 +297,7 @@ function App() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gray-50 p-6 rounded-lg">
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
                 <div className="flex items-center mb-4">
                   <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover mr-4" />
                   <div>
