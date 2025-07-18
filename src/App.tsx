@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import Notification from './Notification';
 
-// IMPORTAÇÕES DOS LOGÓTIPOS RESTAURADAS
+// Importações dos logótipos (removidos os que causavam erro)
 import NetflixLogo from './assets/logos/netflix.png';
 import PrimeVideoLogo from './assets/logos/prime_video.png';
 import DisneyPlusLogo from './assets/logos/disney_plus.png';
@@ -45,7 +45,17 @@ function App() {
   
   const [notification, setNotification] = useState<string | null>(null);
 
-  // Efeitos para scripts, temporizador e notificações...
+  // Efeito para contar as visitas ao site
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('hasVisitedSite');
+    if (!hasVisited) {
+      const currentVisits = parseInt(localStorage.getItem('siteVisits') || '0', 10);
+      localStorage.setItem('siteVisits', (currentVisits + 1).toString());
+      sessionStorage.setItem('hasVisitedSite', 'true');
+    }
+  }, []);
+
+  // Efeito para o script do Vimeo
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://player.vimeo.com/api/player.js";
@@ -54,6 +64,7 @@ function App() {
     return () => { document.body.removeChild(script); }
   }, []);
 
+  // Efeito para o temporizador
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -66,6 +77,7 @@ function App() {
     return () => clearInterval(timer);
   }, []);
   
+  // Efeito para gerar notificações
   useEffect(() => {
     let notificationInterval: NodeJS.Timeout;
     const showRandomNotification = () => {
@@ -119,6 +131,11 @@ function App() {
   ];
 
   const handleCTAClick = () => {
+    // Conta o clique no localStorage
+    const currentClicks = parseInt(localStorage.getItem('testClicks') || '0', 10);
+    localStorage.setItem('testClicks', (currentClicks + 1).toString());
+    
+    // Abre o WhatsApp
     window.open('https://linkly.link/2BefA', '_blank');
   };
 
@@ -160,8 +177,8 @@ function App() {
           </div>
           <div className="mb-8">
             <p className="text-xl font-bold mb-4 text-yellow-300 animate-pulse">
-              🎁 Você já ganhou seu teste VIP, clique para ativar!
-            </p>
+              🎁 Você já ganhou seu teste VIP, clique para ativar! ⬇️
+            </p> 
             <button onClick={handleCTAClick} className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
               Gerar meu Teste Agora
             </button>
@@ -211,7 +228,6 @@ function App() {
         </div>
       </section>
       
-      {/* SECÇÃO DO CARROSSEL DE LOGÓTIPOS RESTAURADA */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -271,7 +287,7 @@ function App() {
               <h4 className="text-3xl font-bold mb-4">Meu Mundo Play</h4>
               <p className="text-lg text-gray-200 mb-6">Todo o conteúdo. Um único lugar. Uma única assinatura.</p>
               <p className="text-gray-100">Nosso Preço Mensal:</p>
-              <p className="text-6xl font-bold text-white my-4">R$ 30,00</p>
+              <p className="text-6xl font-bold text-white my-4">R$ 30</p>
             </div>
           </div>
           <div className="mt-16 bg-green-100 border-l-4 border-green-500 text-green-800 p-6 rounded-lg text-center max-w-4xl mx-auto">
