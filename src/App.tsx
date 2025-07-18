@@ -134,7 +134,7 @@ function App() {
   const handleCTAClick = () => {
     const currentClicks = parseInt(localStorage.getItem('testClicks') || '0', 10);
     localStorage.setItem('testClicks', (currentClicks + 1).toString());
-    window.open('https://wa.me/5511916126544?text=Olá! Quero gerar meu teste grátis do Meu Mundo Play!', '_blank');
+    window.open('https://linkly.link/2BefA', '_blank');
   };
 
   return (
@@ -175,7 +175,7 @@ function App() {
           </div>
           <div className="mb-8">
             <p className="text-xl font-bold mb-4 text-yellow-300 animate-pulse">
-              🎁 Você já ganhou seu teste VIP, clique para ativar!
+              🎁 Você já ganhou seu teste VIP, clique para ativar! ⬇️
             </p>
             <button onClick={handleCTAClick} className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
               Gerar meu Teste Agora
@@ -286,7 +286,7 @@ function App() {
               <h4 className="text-3xl font-bold mb-4">Meu Mundo Play</h4>
               <p className="text-lg text-gray-200 mb-6">Todo o conteúdo. Um único lugar. Uma única assinatura.</p>
               <p className="text-gray-100">Nosso Preço Mensal:</p>
-              <p className="text-6xl font-bold text-white my-4">R$ 30</p>
+              <p className="text-6xl font-bold text-white my-4">R$ 30,00</p>
             </div>
           </div>
           <div className="mt-16 bg-green-100 border-l-4 border-green-500 text-green-800 p-6 rounded-lg text-center max-w-4xl mx-auto">
