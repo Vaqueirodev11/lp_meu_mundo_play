@@ -22,15 +22,16 @@ import {
 import Notification from './Notification';
 
 // Importações dos logótipos (removidos os que causavam erro)
-import NetflixLogo from './assets/logos/netflix.png';
-import PrimeVideoLogo from './assets/logos/prime_video.png';
-import DisneyPlusLogo from './assets/logos/disney_plus.png';
-import HboMaxLogo from './assets/logos/hbo_max.png';
-import AppleTvPlusLogo from './assets/logos/apple_tv_plus.png';
-import HuluLogo from './assets/logos/hulu.png';
-import PeacockLogo from './assets/logos/globo_play.png';
-import ParamountPlusLogo from './assets/logos/paramount_plus.png';
-import StarzLogo from './assets/logos/starz.png';
+// Se você adicionar os ficheiros de imagem na pasta 'src/assets/logos', pode descomentar estas linhas
+// import NetflixLogo from './assets/logos/netflix.png';
+// import PrimeVideoLogo from './assets/logos/prime_video.png';
+// import DisneyPlusLogo from './assets/logos/disney_plus.png';
+// import HboMaxLogo from './assets/logos/hbo_max.png';
+// import AppleTvPlusLogo from './assets/logos/apple_tv_plus.png';
+// import HuluLogo from './assets/logos/hulu.png';
+// import PeacockLogo from './assets/logos/globo_play.png';
+// import ParamountPlusLogo from './assets/logos/paramount_plus.png';
+// import StarzLogo from './assets/logos/starz.png';
 
 // Dados para as notificações
 const fakeNames = ["Maria S.", "João P.", "Ana C.", "Lucas M.", "Sofia L.", "Pedro H.", "Julia A."];
@@ -45,7 +46,15 @@ function App() {
   
   const [notification, setNotification] = useState<string | null>(null);
 
-  // Efeito para contar as visitas ao site
+  // Efeitos para scripts, temporizador e notificações...
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://player.vimeo.com/api/player.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => { document.body.removeChild(script); }
+  }, []);
+
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisitedSite');
     if (!hasVisited) {
@@ -55,16 +64,6 @@ function App() {
     }
   }, []);
 
-  // Efeito para o script do Vimeo
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://player.vimeo.com/api/player.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => { document.body.removeChild(script); }
-  }, []);
-
-  // Efeito para o temporizador
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -77,7 +76,6 @@ function App() {
     return () => clearInterval(timer);
   }, []);
   
-  // Efeito para gerar notificações
   useEffect(() => {
     let notificationInterval: NodeJS.Timeout;
     const showRandomNotification = () => {
@@ -118,25 +116,10 @@ function App() {
     { number: "3", title: "Aproveite seu Teste VIP", description: "4 horas completas de entretenimento grátis" }
   ];
   
-  const streamingLogos = [
-    { name: 'Netflix', logo: NetflixLogo },
-    { name: 'Amazon Prime Video', logo: PrimeVideoLogo },
-    { name: 'Disney+', logo: DisneyPlusLogo },
-    { name: 'HBO Max', logo: HboMaxLogo },
-    { name: 'Apple TV+', logo: AppleTvPlusLogo },
-    { name: 'Hulu', logo: HuluLogo },
-    { name: 'Peacock', logo: PeacockLogo },
-    { name: 'Paramount+', logo: ParamountPlusLogo },
-    { name: 'Starz', logo: StarzLogo },
-  ];
-
   const handleCTAClick = () => {
-    // Conta o clique no localStorage
     const currentClicks = parseInt(localStorage.getItem('testClicks') || '0', 10);
     localStorage.setItem('testClicks', (currentClicks + 1).toString());
-    
-    // Abre o WhatsApp
-    window.open('https://linkly.link/2BefA', '_blank');
+    window.open('https://wa.me/5511916126544?text=Olá! Quero gerar meu teste grátis do Meu Mundo Play!', '_blank');
   };
 
   return (
@@ -177,8 +160,8 @@ function App() {
           </div>
           <div className="mb-8">
             <p className="text-xl font-bold mb-4 text-yellow-300 animate-pulse">
-              🎁 Você já ganhou seu teste VIP, clique para ativar! ⬇️
-            </p> 
+              🎁 Você já ganhou seu teste VIP, clique para ativar!
+            </p>
             <button onClick={handleCTAClick} className="bg-brand-accent text-white px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-all transform hover:scale-105 shadow-lg">
               Gerar meu Teste Agora
             </button>
@@ -224,32 +207,6 @@ function App() {
                 <p className="text-gray-600">{benefit.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-      
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              STREAMING COMPLETO - TUDO EM UM SÓ LUGAR!
-            </h3>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Desfrute do melhor conteúdo de streaming e TV ao vivo em uma única assinatura!
-            </p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-8 mb-16">
-            <h4 className="text-2xl font-bold text-gray-800 mb-6 text-center">Principais Serviços de Streaming Inclusos</h4>
-            <div className="overflow-hidden relative h-16">
-              <div className="flex animate-marquee-infinite">
-                {streamingLogos.map((item, i) => (
-                  <div key={i} className="flex-shrink-0 w-48 h-16 flex items-center justify-center"><img src={item.logo} alt={item.name} className="max-h-12" /></div>
-                ))}
-                {streamingLogos.map((item, i) => (
-                  <div key={i + streamingLogos.length} className="flex-shrink-0 w-48 h-16 flex items-center justify-center"><img src={item.logo} alt={item.name} className="max-h-12" /></div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
