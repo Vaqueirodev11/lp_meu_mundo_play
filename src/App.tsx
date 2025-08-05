@@ -118,7 +118,6 @@ function App() {
     { number: "3", title: "Aproveite seu Teste VIP", description: "4 horas completas de entretenimento grátis" }
   ];
   
-  // LISTA DO CARROSSEL RESTAURADA
   const streamingLogos = [
     { name: 'Netflix', logo: NetflixLogo },
     { name: 'Amazon Prime Video', logo: PrimeVideoLogo },
